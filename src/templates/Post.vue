@@ -1,0 +1,80 @@
+<!--
+ * @Description: 
+ * @Author: xionglaifu
+ * @Date: 2021-10-13 11:46:59
+ * @LastEditors: xionglaifu
+ * @LastEditTime: 2021-10-14 19:11:37
+ * @company: formssi
+-->
+<template>
+  <Layout>
+    <!-- Page Header -->
+    <header
+      class="masthead"
+      :style="{
+        backgroundImage: `url(${GRIDSOME_API_URL + $page.post.cover.url})`,
+      }"
+    >
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>{{ $page.post.title }}</h1>
+              <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+              <span class="meta"
+                >Posted
+                <!-- <a href="#">Start Bootstrap</a> -->
+                on {{ $page.post.created_at }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto" v-html="mdToHtml($page.post.content)"></div>
+        </div>
+      </div>
+    </article>
+  </Layout>
+</template>
+
+<page-query>
+query($id:ID!) {
+  post:strapiPost(id:$id){
+    id
+    title
+    content
+    created_at
+    cover{
+      url
+    }
+    tags{
+      id
+      title
+    }
+  }
+}
+</page-query>
+<script>
+import MarkDownIt from 'markdown-it'
+const md = new MarkDownIt()
+export default {
+  name: 'PostPage',
+  components: {},
+  data() {
+    return {}
+  },
+  methods: {
+    mdToHtml(markdowm) {
+      return md.render(markdowm)
+    },
+  },
+}
+</script>
+<style scoped></style>

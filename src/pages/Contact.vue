@@ -3,7 +3,7 @@
  * @Author: xionglaifu
  * @Date: 2021-10-13 11:50:53
  * @LastEditors: xionglaifu
- * @LastEditTime: 2021-10-13 11:57:02
+ * @LastEditTime: 2021-10-14 20:17:17
  * @company: formssi
 -->
 <template>
@@ -39,6 +39,7 @@
               <div class="form-group floating-label-form-group controls">
                 <label>Name</label>
                 <input
+                  v-model="contact.name"
                   type="text"
                   class="form-control"
                   placeholder="Name"
@@ -53,6 +54,7 @@
               <div class="form-group floating-label-form-group controls">
                 <label>Email Address</label>
                 <input
+                  v-model="contact.email"
                   type="email"
                   class="form-control"
                   placeholder="Email Address"
@@ -67,6 +69,7 @@
               <div class="form-group col-xs-12 floating-label-form-group controls">
                 <label>Phone Number</label>
                 <input
+                  v-model="contact.phone"
                   type="tel"
                   class="form-control"
                   placeholder="Phone Number"
@@ -81,6 +84,7 @@
               <div class="form-group floating-label-form-group controls">
                 <label>Message</label>
                 <textarea
+                  v-model="contact.message"
                   rows="5"
                   class="form-control"
                   placeholder="Message"
@@ -93,7 +97,7 @@
             </div>
             <br />
             <div id="success"></div>
-            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+            <button @click.prevent="onSubmit" type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
           </form>
         </div>
       </div>
@@ -101,13 +105,30 @@
   </Layout>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'ContactPage',
   components: {},
   data() {
-    return {}
+    return {
+      contact: {
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+      },
+    }
   },
-  methods: {},
+  methods: {
+    async onSubmit() {
+      const { data } = await axios({
+        method: 'post',
+        url: this.GRIDSOME_API_URL + '/contacts',
+        data: this.contact,
+      })
+      console.log(data)
+    },
+  },
 }
 </script>
 <style scoped></style>
