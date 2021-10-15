@@ -3,7 +3,7 @@
  * @Author: xionglaifu
  * @Date: 2021-10-13 10:58:05
  * @LastEditors: xionglaifu
- * @LastEditTime: 2021-10-14 19:31:38
+ * @LastEditTime: 2021-10-15 15:31:35
  * @company: formssi
  */
 // This is where project configuration and plugin options are located.
@@ -36,10 +36,10 @@ module.exports = {
         singleTypes: ['general'],
         // Possibility to login with a Strapi user,
         // when content types are not publicly available (optional).
-        // loginData: {
-        //   identifier: '',
-        //   password: '',
-        // },
+        loginData: {
+          identifier: '252132547@qq.com',
+          password: 'Qq669898',
+        },
       },
     },
   ],
